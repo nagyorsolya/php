@@ -2,5 +2,24 @@
 {% block body %}
   <a href="submit">Submit new post<a/>
     <h1 class="text-center">Trending posts</h1>
+      <table class="table">
+        <tr>
+            <th>Score</th>
+            <th>Title</th>
+            <th>URL</th>
+        </tr>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.score }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.url }}</td>
+                <td>
+                    <form action="/delete/{{ post.id }}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
     {% block javascripts %}{% endblock %}
 {% endblock %}

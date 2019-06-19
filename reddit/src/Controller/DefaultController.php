@@ -13,12 +13,20 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class DefaultController extends AbstractController
 {
+
+    private $PostRepository;
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->PostRepository = $postRepository;
+    }
+
     /**
      * @Route("/", name="homepage", methods={"GET"})
      */
     public function index()
     {
-        return $this->render('main.html.twig', []);
+        $posts = $this->PostRepository->findAll();
+        return $this->render('main.html.twig', ['posts' => $posts,]);
     }
     /**
      * @Route("/submit", name="submit")
