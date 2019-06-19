@@ -68,4 +68,19 @@ class DefaultController extends AbstractController
             'showError' => false
         ]);
     }
+
+    /**
+     * @Route("/delete/{id}", name="deletePost")
+     */
+    public function delete($id)
+    {
+        $post = $this->PostRepository->find($id);
+        if ($post == null) {
+            return $this->redirectToRoute('homepage');
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($post);
+        $entityManager->flush();
+        return $this->redirectToRoute('homepage');
+    }
 }
